@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     right: 1,
     left: 1,
     bottom: 1,
-    maxWidth: '350px',
+    maxWidth: '300px',
 
   }, image: {
     alignItems: 'center',
@@ -55,12 +55,12 @@ const useStyles = makeStyles((theme) => ({
 const MatiaCarousel = (props) => {
   const responsive = {
     desktop: {
-      breakpoint: {max: 3000, min: 1024},
+      breakpoint: {max: 3000, min: 1400},
       items: 3,
       slidesToSlide: 1 // optional, default to 1.
     },
     tablet: {
-      breakpoint: {max: 1024, min: 464},
+      breakpoint: {max: 1400, min: 464},
       items: 2,
       slidesToSlide: 1 // optional, default to 1.
     },
@@ -89,7 +89,7 @@ const MatiaCarousel = (props) => {
     changeLang()
   }, [mainIndex])
   const items = matiaCollection.map((image) =>
-  <img height="150px" width='96px' alt="" src={image} onDragStart={handleDragStart} />,<p>keimeno</p>);
+  <img height="150px" width='96px' alt="" src={image} onDragStart={handleDragStart} />,);
 
   const syncMain = (e) => {
     setMainIndex(e.item);
@@ -110,28 +110,37 @@ const MatiaCarousel = (props) => {
     mouseTracking
     responsive={{
       0: {
-        items: 1
+        items: 20
       },
       300: {
-        items: 3
+        items: 20
       },
       500: {
-        items: 5
+        items: 20
       },
       700: {
-        items: 7
+        items: 20
       },
       800: {
-        items: 8
+        items: 20
       },
       900: {
-        items: 9
+        items: 20
       },
       1024: {
-        items: 10
+        items: 20
+      },
+      1200: {
+        items: 20
       },
       1300: {
-        items: 13
+        items: 20
+      },
+      1400: {
+        items: 20
+      },
+      1500: {
+        items: 20
       },
       3000: {
         items: 20

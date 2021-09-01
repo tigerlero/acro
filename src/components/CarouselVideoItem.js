@@ -7,6 +7,7 @@ import {withStyles, makeStyles,} from '@material-ui/core/styles';
 
 const BootstrapButton = withStyles({
   root: {
+    width:"150px",
     boxShadow: 'none',
     textTransform: 'none',
     fontSize: 16,
@@ -47,6 +48,7 @@ const BootstrapButton = withStyles({
 
 const useStyles = makeStyles((theme) => ({
   margin: {
+    padding: "2px",
    width:'351px',
     '&:hover': {
       backgroundColor: 'rgba(240,240,240,.9)',
@@ -75,7 +77,7 @@ textAlign:'center',
   },
 
   thumbnail: {
-    width: '350px',
+    width: '300px',
     height: '250px',
     paddingBottom: '10px',
   },

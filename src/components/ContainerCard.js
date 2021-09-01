@@ -6,8 +6,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {Link} from 'react-router-dom';
+import {Endpoint} from '../constants/enums';
 import {downloadThumb} from '../helpers/utils'
 import {IconButton} from '@material-ui/core'
+import {useFetch} from '../helpers/hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     textDecodation: 'none',
   },
+  description: {
+    textDecodation: 'none',
+  },
   subtitle: {
     fontWeight: 'bold',
     textDecodation: 'none',
@@ -44,13 +49,34 @@ const useStyles = makeStyles((theme) => ({
 export default function ContainerCard({container}) {
   const classes = useStyles();
   const [thumbnail, setThumbnail] = useState(null)
-
+  const [description,setDescription] = useState('')
+  const url = Endpoint.containers + '/' + container.uuid;
+  const [isLoading, result, error] = useFetch(url, {
+    children: [],
+    datastreams: []
+  });
   useEffect(() => {
-    if (container.uuid && container.datastreams)
-      container.datastreams[0] && downloadThumb(container.datastreams[0].uuid, setThumbnail)
-
+    if (result.uuid)
+    {
+      result.datastreams[0] && downloadThumb(result.datastreams[0].uuid, setThumbnail)   
+      const findProp = result.properties.find((p)=>p.key==='property:description')
+      console.log(findProp)
+      if (findProp === -1)
+      {
+        setDescription('bla bla')
+      }
+      else if(findProp.value.length > 0)
+      {
+        const parsedDescr = JSON.parse(findProp.value)
+        setDescription(parsedDescr.values)
+      }
+      else{
+        setDescription(findProp.value)
+      }
+    }
+    
     // eslint-disable-next-line
-  }, [container.uuid])
+  }, [result.uuid])
 
   return (
     <Link to={'/containers/' + container.uuid}>
@@ -58,7 +84,7 @@ export default function ContainerCard({container}) {
         <CardContent>
           <Grid container alignContent={'center'} justify={'center'} alignItems={'center'} spacing={2}>
             <Grid item>
-              <img style={{minHeight: '350px', maxHeight: '350px'}}
+              <img style={{height: '280px', width: '360px'}}
                    src={thumbnail == null ? require('../assets/default.png') : thumbnail} alt={container.label}/>
             </Grid>
             <Grid
@@ -70,22 +96,20 @@ export default function ContainerCard({container}) {
                 overflow: 'hidden',
               }}
             >
-              <Typography className={classes.title}>
+              <Typography className={classes.title} variant="caption" display="block" gutterBottom>
                 {container.label ? container.label : '-'}
               </Typography>
-              <Typography
-                noWrap
-                className={classes.subtitle}
-                color={'textSecondary'}
-              >
-                {container.datastreams ? container.datastreams.length : '-'} files
+              <Typography className={classes.description} variant="caption" display="block" gutterBottom>
+              {description}
               </Typography>
+        
             </Grid>
             <Grid item>
               <IconButton color={'primary'}>
                 <NavigateNext/>
               </IconButton>
             </Grid>
+            
           </Grid>
         </CardContent>
       </Card>

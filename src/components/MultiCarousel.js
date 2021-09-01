@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     left: 1,
     top: 1,
     bottom: 1,
-    maxWidth: '350px',
+    maxWidth: '300px',
 
   }, image: {
     alignItems: 'center',
@@ -42,12 +42,12 @@ const useStyles = makeStyles((theme) => ({
 const MultiCarousel = (props) => {
   const responsive = {
     desktop: {
-      breakpoint: {max: 3000, min: 1024},
+      breakpoint: {max: 3000, min: 1400},
       items: 3,
       slidesToSlide: 1 // optional, default to 1.
     },
     tablet: {
-      breakpoint: {max: 1024, min: 464},
+      breakpoint: {max: 1400, min: 464},
       items: 2,
       slidesToSlide: 1 // optional, default to 1.
     },

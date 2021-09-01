@@ -2,4 +2,4 @@
 //TODO: Must be corrected
 export const API_URL =  "https://store-api.repox.io";
 export const HOME_PAGE = process.env.PUBLIC_URL || "/";
-export const APP_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyODk0MTgzMywiaWF0IjoxNjEzMzg5ODMzfQ.nr3RYXiSIrmy6CR15lLpEsXr8GwIREpFCPX3qYMh8Rqu43pqAYwPJJghFBA_tTrkiIrPhb1Y9kbPOCsZJxVsVA";
+export const APP_TOKEN = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY0MzYyMTc2NywiaWF0IjoxNjI4MDY5NzY3LCJlbWFpbCI6ImFkbWluQGRvbWFpbi5jb20ifQ.kL0PTjEZ8CdS9msZj4Ko_s-z3dZdhniPLN08eihLrtvj1kIYVIBByrBaH1J04SJcf0jud9IgHXEgARrFExYGIw";
