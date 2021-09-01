@@ -18,7 +18,14 @@ import 'react-multi-carousel/lib/styles.css';
 import {Box, Typography} from '@material-ui/core';
 import Button from '@material-ui/core/Button'
 import {AccessTimeOutlined} from '@material-ui/icons'
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+  
+  cen:{
+    alignItems:'center'
+ }
+}));
 const responsive = {
   desktop: {
     breakpoint: {max: 3000, min: 1234},
@@ -38,6 +45,7 @@ const responsive = {
 };
 
 const ContainerView = (props) => {
+  const cent = useStyles();
   const classes = useCommonStyles();
   const uuid = props.match.params.id;
   const url = Endpoint.containers + '/' + uuid;
@@ -76,6 +84,7 @@ const ContainerView = (props) => {
       <LinearProgress
         style={{visibility: isLoading ? 'visible' : 'hidden'}}
       />
+      
       <Container className={classes.cardGrid} maxWidth="md">
         {error && (
           <Alert severity="error" style={{marginBottom: 16}}>
@@ -94,7 +103,6 @@ const ContainerView = (props) => {
           ))}
         </Grid>
       </Container>
-    
     </Fragment></MuiThemeProvider>
   );
 };

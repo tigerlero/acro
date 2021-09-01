@@ -24,26 +24,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Slider = () => {
+const Slider2 = () => {
   const classes = useStyles();
   return <div className={classes.root}>
    
-  <Carousel  className={classes.image} autoPlay={true}>
+  <Carousel className={classes.image} autoPlay={true}>
     <div className={classes.image}>
-      <img width="80%" height="60%" alt="" src="http://www.talent.gr/demo/static/media/diaspora3.82fd0858.jpg" />
+      <img width="80%" height="60%" alt="" src="http://www.talent.gr/demos/acropolis/diaspora/p4-1-1.jpg" />
       <p className="legend">Legend 1</p>
     </div>
     <div className={classes.image}>
-      <img width="80%" height="60%" alt="" src="http://www.talent.gr/demo/static/media/diaspora1.6ad21aba.jpg" />
+      <img width="80%" height="60%" alt="" src="http://www.talent.gr/demos/acropolis/diaspora/p4-1-2.jpg" />
       <p className="legend">Legend 2</p>
     </div>
     <div className={classes.image}>
-      <img width="80%" height="60%" alt="" src="http://www.talent.gr/demo/static/media/diaspora2.7ff5d622.jpg" />
-      <p className="legend">Legend 3</p>
+      <img width="80%" height="60%" alt="" src="http://www.talent.gr/demos/acropolis/diaspora/p4-1-3.jpg" />
+      Legend 3
     </div>
   </Carousel>
   
   </div>
 }
 ;
-export default Slider;
+export default Slider2;

@@ -1,10 +1,15 @@
 import React, {useEffect, useState } from 'react';
-import {Container, Grid, MuiThemeProvider} from '@material-ui/core'
 import Header from '../components/Header';
 import ReactPlayer from 'react-player';
 import test from "assets/video/intro.mp4";
 import { makeStyles } from '@material-ui/core/styles';
 import {theme} from 'theme'
+import {Container, Grid, Card, MuiThemeProvider, Collapse, IconButton} from '@material-ui/core'
+import {Component} from 'react';
+import {render} from 'react-dom';
+import Slider from '../components/Slider';
+import '../assets/carousel.min.css';
+import {ExpandLess, ExpandMore} from '@material-ui/icons'
 const useStyles = makeStyles((theme) => ({
  video:{
     position: 'fixed',
@@ -15,10 +20,22 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "100%",
     minHeight: "100%",
     backgroundColor:"#000",
- }
+ },
+ textDecor: {
+  alignItems: 'center',
+  textAlign: 'center',
+  marginTop: theme.spacing(20),
+  marginLeft: theme.spacing(2),
+  marginRight: theme.spacing(2),
+  height: '200px',
+  overflowY: 'scroll',
+  lineHeight: '180%'
+},
+
 }));
 function HomePage() {
   const classes = useStyles();
+  const [expanded,setExpanded] = useState(false)
   const [showVideo,setShowVideo] = useState(false);
 
   useEffect(()=>{
@@ -35,11 +52,66 @@ function HomePage() {
     return (
       <MuiThemeProvider theme={theme}>
         <Header/>
-        <Container style={{marginTop:20}}>
-          <Grid container>
-            <Grid item>ΑΡΧΙΚΗ</Grid>
+        <Container alignContent="center" alignItems="center" style={{marginTop: 20}}>
+        <Grid container
+              direction="row-reverse"
+              justifyContent="center"
+              alignItems="baseline">
+          <Grid alignContent="center" alignItems="center" item><Slider/></Grid>
+          <Grid item className={classes.textDecor}>
+              <p>Η αγάπη για τις ελληνικές αρχαιότητες και η επιθυμία για την ιδιοποίησή τους έχει ξεκινήσει ήδη από τα
+                ρωμαϊκά χρόνια (Σύλλας 86 π.Χ., ).
+                Το πάθος για την ελληνική τέχνη οδήγησε πολλές φορές όχι μόνο στην αντιγραφή σπουδαίων γλυπτών αλλά και
+                στη διαρπαγή των ίδιων των έργων.
+                Η έμφυτη τάση της κατοχής/ιδιοκτησίας έστω και ενός μικρού θραύσματος αρχαίου έργου και ιδίως από την
+                Ακρόπολη,
+                τον κατεξοχήν αντιπροσωπευτικό χώρο της κλασικής εποχής,
+                εκδηλώθηκε στο πρόσωπο των αξιωματούχων και στρατιωτών του Μοροζίνι όταν το 1687,
+                μετά την ανατίναξη του Παρθενώνα πολλά κομμάτια του γλυπτού διακόσμου του μνημείου βρέθηκαν εκτεθειμένα
+                στο έδαφος.</p>
+              <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <p>
+                Βρήκε επίσης την έκφρασή της στο πρόσωπο των περιηγητών και διπλωματών οι οποίοι,
+                μετά την έκδοση των σχεδίων της Ακρόπολης από τους Stuart και Revett στο β μισό του 18ου αι.
+                και την κατά συνέπεια γνωριμία του ευρωπαϊκού κόσμου με την ελληνική αρχιτεκτονική και γλυπτική,
+                ταξίδεψαν στην Ελλάδα,
+                επισκέφθηκαν την Ακρόπολη και επέστρεψαν στις πατρίδες τους με ένα ενθύμιο
+                άλλοτε ως δείγμα θαυμασμού για την ελληνική τέχνη και άλλοτε ως σύμβολο κύρους και επίδειξης.
+                Την ίδια πρακτική ακολούθησαν και οι απλοί επισκέπτες ανά τους αιώνες.
+                Αυτό το ίδιο χαρακτηριστικό της ανθρώπινης φύσης έγινε όπλο στα χέρια αρχαιοκάπηλων που επιδόθηκαν στην
+                παράνομη διακίνηση αρχαιοτήτων με σκοπό το εύκολο κέρδος
+                γεγονός που οδήγησε στο να ληφθεί μέριμνα για την προστασία των πολιτιστικών αγαθών στην Ελλάδα ήδη από
+                τα χρόνια της Επανάστασης
+                (διάταγμα του Υπουργού Εσωτερικών (10-2-1825) της κυβερνήσεως των επαναστατών ορίζεται να
+                περισυλλέγονται οι αρχαιότητες και να φυλάσσονται στα σχολεία,
+                ενώ το Σύνταγμα της Τροιζήνας (άρθρο ιη΄) ορίζει ότι «ο Διοικητής χρεωστεί να φροντίζη να μήν πωλώνται ή
+                να μη μεταφέρωνται εκτός της επικρατείας οι Αρχαιότητες».
+                Έπειτα, στο νεοσύστατο Ελληνικό Κράτος ο Κυβερνήτης Ιωάννης Καποδίστριας εξέδωσε την υπ’ αριθ.
+                2400/12-5-1828
+                διαταγή με την οποία απαγόρευσε την εξαγωγή αρχαιοτήτων από την ελληνική επικράτεια και όρισε «να
+                παραχωρώνται
+                κατά προτίμησιν εις την Κυβέρνησιν» ) αλλά και σε Ευρωπαϊκό επίπεδο (νομοθεσία, Unesco).
+                Παράλληλα με την αύξηση της ανασκαφικής δραστηριότητας στην Ακρόπολη κατά τα μέσα του 19 ου αι.
+                δημιουργείται η ανάγκη φύλαξης των ευρημάτων και δεδομένου ότι η Ακρόπολη κατά την περίοδο αυτή
+                δε διαθέτει τους κατάλληλους χώρους τα αντικείμενα μεταφέρονται στο Εθνικό Αρχαιολογικό Μουσείο.
+                Αποτέλεσμα των παραπάνω ενεργειών είναι η απογύμνωση μνημείων συχνά με συνέπειες στη δομική ακεραιότητά
+                τους,
+                η διασπορά των αρχαίων της Ακρόπολης που εντάχθηκαν σε συλλογές των μουσείων της Αθήνας και της Ευρώπης
+                αλλά
+                και σε ιδιωτικές συλλογές ανά τον κόσμο, η γένεση ιδεολογικών αντιπαραθέσεων καθώς
+                και η αφαίρεση της δυνατότητας ολοκληρωμένης παρουσίασης του υλικού στο σύνολό του
+                και καλύτερη κατανόησή του. Που βρίσκονται αντικείμενα: Αγγλία, Γαλλία, Αυστρία, Αμερική, Δανία,
+                Γερμανία, Ιταλία, Σουηδία και σε άλλα μουσεία της Αθήνα
+              </p>
+              </Collapse>
+          </Grid>
+          <Grid item>
+            <IconButton title={expanded?'Λιγότερα':'Περισσότερα'} onClick={()=>setExpanded(!expanded)}>
+              {expanded?<ExpandLess/>:<ExpandMore/>}
+            </IconButton>
+          </Grid>
         </Grid>
-        </Container>
+      </Container>
           {showVideo && (<ReactPlayer
           className={classes.video}
           autoplay

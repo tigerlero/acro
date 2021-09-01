@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import NotFoundPage from 'pages/NotFoundPage';
 import { BrowserRouter, Link, Switch, Route} from 'react-router-dom'
-import Diaspora from 'pages/Diaspora';
 import Mouseia from 'pages/Mouseia';
 import Euretirio from 'pages/Euretirio';
 import Istories from 'pages/Istories';
@@ -24,7 +23,6 @@ function App() {
       
       <Route path="/" component={HomePage} exact={true} />
         <Route path="/me-mia-matia" component={MeMiaMatia} exact={true} />
-        <Route path="/diaspora" component={Diaspora} exact={true} />
         <Route path="/mouseia" component={Mouseia} exact={true} />
         <Route path="/acropolis" component={AcroEkthemata} exact={true} />
         <Route path="/istories" component={Istories} exact={true} />

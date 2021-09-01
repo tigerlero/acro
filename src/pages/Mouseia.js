@@ -61,38 +61,41 @@ function Mouseia(){
   const classes = useStyles();
 
   const [akroLoading,akroResult,akroError] = useFetch(`${Endpoint.containers}/52e73b8d-9f53-45b1-a6a6-6adfd80d7b18`,[]);
+  const [vreLoading,vreResult,vreError] = useFetch(`${Endpoint.containers}/f3109b71-3072-4c6c-b17a-9cba019978cb`,[]);
+  
+  const [ethnLoading,ethnResult,ethnError] = useFetch(`${Endpoint.containers}/36738f8a-9382-4df4-8c80-852d59d35010`,[]);
   
   const isLoading = useMemo(()=>{
     try{
-      return !!(akroLoading);
+      return !!(akroLoading || vreLoading || ethnLoading);
     }
     catch (e){
       return false
     }
-  },[akroLoading])
+  },[akroLoading,vreLoading,ethnLoading])
 
   const error = useMemo(()=>{
     try{
-      if (akroError)
+      if (akroError || vreError || ethnError)
         return true
     }
     catch (e){
       return false
     }
-  },[akroError])
+  },[akroError,vreError,ethnError])
 
   const result = useMemo(()=>{
     try{
-      if (akroResult.uuid)
+      if (akroResult.uuid||vreResult.uuid||ethnResult.uuid)
       {
-        return [akroResult]
+        return [akroResult,vreResult,ethnResult]
       }
     }
     catch (e){
       console.log(e)
       return []
     }
-  },[akroResult]);
+  },[akroResult,vreResult,ethnResult]);
 
   return(<MuiThemeProvider theme={theme}>
     <Header/>
@@ -116,7 +119,7 @@ function Mouseia(){
         {/* End hero unit */}
         <Grid container spacing={4}>
           {result && result.map((container, index) => (
-            <Grid item key={index} xs={12} sm={4} md={4}>
+            <Grid item key={index} xs={12} sm={6} md={6}>
               <ContainerCard container={container} />
             </Grid>
           ))}

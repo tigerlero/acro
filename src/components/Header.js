@@ -155,8 +155,6 @@ const Header = () => {
           <NavLink to="/" activeClassName={classes.activeMenu} className={classes.navLink} exact={true}>Αρχική</NavLink>
           <NavLink to="/me-mia-matia" activeClassName={classes.activeMenu} className={classes.navLink} exact={true}>Με
             μια ματιά</NavLink>
-          <NavLink to="/diaspora" activeClassName={classes.activeMenu} className={classes.navLink}
-                   exact={true}>Διασπορά</NavLink>
           <NavLink to="/mouseia" activeClassName={classes.activeMenu} className={classes.navLink}
                    exact={true}>Μουσεία</NavLink>
           <NavLink to="/istories" activeClassName={classes.activeMenu} className={classes.navLink}

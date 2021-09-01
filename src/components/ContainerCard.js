@@ -13,6 +13,7 @@ import {useFetch} from '../helpers/hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+  
     transition: 'transform .2s',
     zIndex: 99,
     '&:hover': {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   media: {
-    height: 400,
+    height: 500,
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -34,11 +35,45 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   title: {
+    flex:'left',
     fontWeight: 'bold',
+    textAlign:'center',
     textDecodation: 'none',
+    '&:link': {
+      textDecodation: 'none',
+    }
+    ,
+    '&:visited':  {
+      textDecodation: 'none',
+    }
+    ,
+    '&:hover': {
+      textDecodation: 'none',
+    }
+    ,
+    '&:active':  {
+      textDecodation: 'none',
+    }
   },
   description: {
+    flex:'left',
+    textAlign:'center',
     textDecodation: 'none',
+    '&:link': {
+      textDecodation: 'none',
+    }
+    ,
+    '&:visited':  {
+      textDecodation: 'none',
+    }
+    ,
+    '&:hover': {
+      textDecodation: 'none',
+    }
+    ,
+    '&:active':  {
+      textDecodation: 'none',
+    }
   },
   subtitle: {
     fontWeight: 'bold',
@@ -50,6 +85,7 @@ export default function ContainerCard({container}) {
   const classes = useStyles();
   const [thumbnail, setThumbnail] = useState(null)
   const [description,setDescription] = useState('')
+  const [link,setLink] = useState('')
   const url = Endpoint.containers + '/' + container.uuid;
   const [isLoading, result, error] = useFetch(url, {
     children: [],
@@ -59,19 +95,47 @@ export default function ContainerCard({container}) {
     if (result.uuid)
     {
       result.datastreams[0] && downloadThumb(result.datastreams[0].uuid, setThumbnail)   
-      const findProp = result.properties.find((p)=>p.key==='property:description')
-      console.log(findProp)
-      if (findProp === -1)
+      const findDesc = result.properties.find((p)=>p.key==='property:description')
+      const findUrlInternal = result.properties.find((p)=>p.key==='property:url-internal')
+      const findUrl = result.properties.find((p)=>p.key==='property:url')
+      
+      console.log(findDesc,findUrlInternal,findUrl)
+      if (findDesc === undefined)
       {
-        setDescription('bla bla')
+        setDescription('Περιγραφή')
       }
-      else if(findProp.value.length > 0)
+      else if(findDesc.value.length > 0)
       {
-        const parsedDescr = JSON.parse(findProp.value)
+        const parsedDescr = JSON.parse(findDesc.value)
         setDescription(parsedDescr.values)
       }
       else{
-        setDescription(findProp.value)
+        setDescription(findDesc.value)
+      }
+      
+      if (findUrlInternal === undefined)
+      {
+        setLink('url')
+      }
+      else if(findUrlInternal.value.length > 0)
+      {
+        const parsedDescr = JSON.parse(findUrlInternal.value)
+        setLink(parsedDescr.values)
+      }
+      else{
+        setLink(findUrlInternal.value)
+      }
+      if (findUrl === undefined)
+      {
+        setLink('url')
+      }
+      else if(findUrl.value.length > 0)
+      {
+        const parsedDescr = JSON.parse(findUrl.value)
+        setLink(parsedDescr.values)
+      }
+      else{
+        setLink(findUrl.value)
       }
     }
     
@@ -84,7 +148,7 @@ export default function ContainerCard({container}) {
         <CardContent>
           <Grid container alignContent={'center'} justify={'center'} alignItems={'center'} spacing={2}>
             <Grid item>
-              <img style={{height: '280px', width: '360px'}}
+              <img style={{height: '360px', width: '450px'}}
                    src={thumbnail == null ? require('../assets/default.png') : thumbnail} alt={container.label}/>
             </Grid>
             <Grid
@@ -95,14 +159,17 @@ export default function ContainerCard({container}) {
                 flex: 1,
                 overflow: 'hidden',
               }}
-            >
+            ><p>
               <Typography className={classes.title} variant="caption" display="block" gutterBottom>
                 {container.label ? container.label : '-'}
               </Typography>
-              <Typography className={classes.description} variant="caption" display="block" gutterBottom>
+              <Typography className={classes.description} variant="body" display="block" gutterBottom>
               {description}
               </Typography>
-        
+              <Typography className={classes.description} variant="body" display="block" gutterBottom>
+              {link}
+              </Typography>
+              </p>
             </Grid>
             <Grid item>
               <IconButton color={'primary'}>

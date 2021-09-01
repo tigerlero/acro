@@ -8,7 +8,7 @@ import { fetchData } from "../helpers/utils";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Popover from "@material-ui/core/Popover";
-import { InfoOutlined } from "@material-ui/icons";
+import { Block, InfoOutlined } from "@material-ui/icons";
 import {downloadThumb} from '../helpers/utils'
 import Box from '@material-ui/core/Box'
 
@@ -20,19 +20,19 @@ const useStyles = makeStyles((theme) => ({
       height:'530px',
     },
     [theme.breakpoints.down('md')]: {
-      width:'90%',
-      height:'500px'
+      width:'60%',
+      height:'60%'
     },
       [theme.breakpoints.down('sm')]: {
         width:'90%'
       },
     [theme.breakpoints.down('xs')]: {
-      width:'100%'
+      width:'60%'
     }
   },
   media: {
-    height: 400,
-    width: "100%",
+    height: '60%',
+    width: "60%",
     objectFit: "cover",
   },
   expand: {
@@ -56,7 +56,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(1),
-    maxWidth: 680,
+    maxWidth: '60%',
+    
   },
 }));
 
@@ -126,7 +127,7 @@ export default function CarouselItem({ dataStream, containerUuid }) {
   return (
     <Link to={path}>
       <Card className={classes.root} variant={"outlined"}>
-        <img src={imgSrc == null ? require("../assets/default.png") : imgSrc} className={classes.media} alt={""} />
+        <img height='100%' width='100%' src={imgSrc == null ? require("../assets/default.png") : imgSrc} className={classes.media} alt={""} />
         <CardContent>
           <Typography
             gutterBottom

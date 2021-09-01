@@ -84,7 +84,7 @@ export default function DataStreamView({uuid,dismiss}) {
 
   const handleInfo = () => {
     const dataStreamDescription = searchKeyValue(
-      "acropolis-description-el",
+      "property:description",
       dataStreamResult.properties
     );
 
