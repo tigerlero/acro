@@ -9,6 +9,8 @@ import {ExpandLess, ExpandMore} from '@material-ui/icons'
 import {Button} from '@material-ui/core';
 import {withStyles, makeStyles,} from '@material-ui/core/styles';
 import ArtTrack from '@material-ui/icons/ArtTrack';
+
+import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import {NavLink} from 'react-router-dom';
 
 const BootstrapButton = withStyles({
@@ -107,7 +109,7 @@ function MouseioMesa(){
           <NavLink  to="/mouseia" activeClassName={classes.activeMenu} className={classes.navLink}
           exact={true}>
           <BootstrapButton variant="contained" color="primary" 
-          startIcon={<ArtTrack />}
+          startIcon={<ArrowBackIos />}
         >
           Πίσω
         </BootstrapButton></NavLink></div></Grid>
@@ -122,7 +124,7 @@ function MouseioMesa(){
           <NavLink  to="/mouseia" activeClassName={classes.activeMenu} className={classes.navLink}
           exact={true}>
           <BootstrapButton variant="contained" color="primary" 
-          startIcon={<ArtTrack />}
+          endIcon={<ArtTrack />}
         >
           Εκθέματα
         </BootstrapButton></NavLink></div></Grid>
