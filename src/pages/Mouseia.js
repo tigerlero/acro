@@ -153,7 +153,9 @@ function Mouseia(){
       <Grid item ><NavLink to="/acropolis" activeClassName={classes.activeMenu} className={classes.navLink}
       exact={true}><img width="400px" height="300px" alt="" src="http://www.talent.gr/demo/static/media/acropolis_1.4c17059b.jpg" />
       </NavLink><span className={classes.span}>Μουσείο της Ακρόπολης</span></Grid>
-        <Grid item><img width="400px" height="300px" alt="" src="http://www.talent.gr/demo/static/media/british_1.a8fb8d1e.jpg" />
+      <Grid item><NavLink to="/mouseio" activeClassName={classes.activeMenu} className={classes.navLink}
+      exact={true}><img width="400px" height="300px" alt="" src="http://www.talent.gr/demo/static/media/british_1.a8fb8d1e.jpg" />
+      </NavLink>
         <span className={classes.span}>Βρετανικό Μουσείο</span></Grid>
         <Grid item><img width="400px" height="300px" alt="" src="http://www.talent.gr/demo/static/media/copenhagen_1.e63b5b53.jpg" />
         <span className={classes.span}>Μουσείο Rodin στο Παρίσι</span></Grid>
