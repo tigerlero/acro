@@ -43,7 +43,7 @@ export const formatBytes = (bytes, decimals = 2) => {
 };
 
 export const downloadFile = (downloadUrl, file) => {
-  let headers = { Authorization: APP_TOKEN,'X-TenantID':'acropolis' };
+  let headers = { Authorization: APP_TOKEN,'X-TenantID':'ermisf' };
   return axios
     .get(downloadUrl, { headers, responseType: "blob" })
     .then((response) => {
@@ -70,7 +70,7 @@ export const downloadThumb = (
   fileUUID,
   setThumbnail,
 ) => {
-  let headers = {Authorization: APP_TOKEN, 'X-TenantID': 'acropolis'};
+  let headers = {Authorization: APP_TOKEN, 'X-TenantID': 'ermisf'};
   let base64Data = null
   axios
     .get(`${Endpoint.dataStreams}/${fileUUID}/thumb/preview`, {headers, responseType: "blob"})
@@ -95,7 +95,7 @@ export const loadDataStreamFile = (
   setImgLoading,
   // setProgress
 ) => {
-  let headers = {Authorization: APP_TOKEN, 'X-TenantID': 'acropolis'};
+  let headers = {Authorization: APP_TOKEN, 'X-TenantID': 'ermisf'};
   // const source = axios.CancelToken.source();
 
   setImgLoading(true)

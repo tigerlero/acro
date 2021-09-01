@@ -11,40 +11,48 @@ import {Endpoint} from '../constants/enums'
 
 const RootView = () => {
   const classes = useCommonStyles();
-  const test = useFetch(`${Endpoint.containers}/52e73b8d-9f53-45b1-a6a6-6adfd80d7b18?datastream=aca8faf1-458f-42cb-a4b4-5321eba60a76`,[]);
-  const [xthesLoading,xthesResult,xthesError] = useFetch(`${Endpoint.containers}/52e73b8d-9f53-45b1-a6a6-6adfd80d7b18`,[]);
-  
+
+  const [xthesLoading,xthesResult,xthesError] = useFetch(`${Endpoint.containers}/608784e7-005c-474f-8e3c-de00ca30c601`,[]);
+  const [simeraLoading,simeraResult,simeraError] = useFetch(`${Endpoint.containers}/ffdd9a98-5622-4950-b8ba-316f0ea47ffe`,[]);
+  const [avrioLoading,avrioResult,avrioError] = useFetch(`${Endpoint.containers}/a7aeeb39-12aa-4467-b632-c862eb372738`,[]);
+  const [xthes15Loading,xthes15Result,xthes15Error] = useFetch(`${Endpoint.containers}/7fa01343-3bfc-4ad5-9716-241891c47d1d`,[]);
+  const [simera15Loading,simera15Result,simera15Error] = useFetch(`${Endpoint.containers}/0da2616e-551c-41c9-b0a7-68e07efa9573`,[]);
+  const [avrio15Loading,avrio15Result,avrio15Error] = useFetch(`${Endpoint.containers}/0e7a38f0-3505-4636-90cc-3606e9d1a2f9`,[]);
+  const [xthesKidsLoading,xthesKidsResult,xthesKidsError] = useFetch(`${Endpoint.containers}/c10b2a77-2e51-4f2a-b468-cf8d5b6d42d1`,[]);
+  const [simeraKidsLoading,simeraKidsResult,simeraKidsError] = useFetch(`${Endpoint.containers}/6ea06da2-12ed-40c6-96b5-0caaa15e5070`,[]);
+  const [avrioKidsLoading,avrioKidsResult,avrioKidsError] = useFetch(`${Endpoint.containers}/079371f8-c9b7-4738-aa8e-fcb71177f1f6`,[]);
+
   const isLoading = useMemo(()=>{
     try{
-      return !!(xthesLoading);
+      return !!(avrioLoading || xthesLoading || simeraLoading || xthes15Loading || simera15Loading || avrio15Loading || xthesKidsLoading || simeraKidsLoading || avrioKidsLoading);
     }
     catch (e){
       return false
     }
-  },[xthesLoading])
+  },[avrioLoading,xthesLoading,simeraLoading,avrio15Loading,xthes15Loading,simera15Loading,avrioKidsLoading,xthesKidsLoading,simeraKidsLoading])
 
   const error = useMemo(()=>{
     try{
-      if (xthesError)
+      if (avrioError || xthesError || simeraError || xthes15Error || simera15Error || avrio15Error || xthesKidsError || simeraKidsError || avrioKidsError)
         return true
     }
     catch (e){
       return false
     }
-  },[xthesError])
+  },[avrioError,xthesError,simeraError,avrio15Error,xthes15Error,simera15Error,avrioKidsError,xthesKidsError,simeraKidsError])
 
   const result = useMemo(()=>{
     try{
-      if (xthesResult.uuid)
+      if (avrioResult.uuid && xthesResult.uuid && simeraResult.uuid && xthes15Result.uuid && simera15Result.uuid &&  avrio15Result.uuid && xthesKidsResult.uuid && simeraKidsResult.uuid && avrioKidsResult.uuid)
       {
-        return [xthesResult]
+        return [xthesResult,simeraResult,avrioResult,xthes15Result,simera15Result,avrio15Result,xthesKidsResult,simeraKidsResult,avrioKidsResult]
       }
     }
     catch (e){
       console.log(e)
       return []
     }
-  },[xthesResult])
+  },[xthesResult,simeraResult,avrioResult,xthes15Result,simera15Result,avrio15Result,xthesKidsResult,simeraKidsResult,avrioKidsResult])
 
 
   return (
@@ -72,7 +80,6 @@ const RootView = () => {
               <ContainerCard container={container} />
             </Grid>
           ))}
-{test}
         </Grid>
       </Container>
     </Fragment>

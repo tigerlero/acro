@@ -1,14 +1,12 @@
 import React, {Fragment, useMemo, useState} from 'react';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import {useCommonStyles} from 'components/styles';
 import ContainerCard from 'components/ContainerCard';
 import {useFetch} from '../helpers/hooks';
 import {Endpoint} from '../constants/enums';
 import LinearProgress from '@material-ui/core/LinearProgress';
 //import ContainerBreadCrumb from '../components/ContainerBreadCrumb';
-import Header from '../components/Header';
-import "../App.css";
-import {Container, Grid, Card, MuiThemeProvider} from '@material-ui/core';
-import {theme} from 'theme';
 import NoFiles from 'components/NoFiles';
 import DataStreamView from './DataStreamView';
 import Alert from '@material-ui/lab/Alert';
@@ -59,8 +57,7 @@ const ContainerView = (props) => {
     props.history.push(`/containers/${result.uuid}`);
   };
 
-  return (<MuiThemeProvider theme={theme}>
-    <div className={classes.header}><Header/></div>
+  return (
     <Fragment>
       {/*<div className={classes.heroContent}>*/}
       {/*  <Container maxWidth="md">*/}
@@ -106,7 +103,49 @@ const ContainerView = (props) => {
           </Carousel>
           }
         </Box>
-        
+        <Box>
+          {!isLoading && <>
+            <Box className={classes.delayControls} mb={2} align={'center'}>
+              <Typography variant={'caption'} color={'textPrimary'} align={'center'}>Χρόνος αυτόματης εναλλαγής</Typography>
+            </Box>
+            <Grid container spacing={2} alignContent={'center'} alignItems={'center'} justify={'center'}>
+              <Grid item>
+                <Button
+                  variant={`${carouselDelay === 5000 ? 'contained' : 'outlined'}`}
+                  color="primary"
+                  startIcon={<AccessTimeOutlined/>}
+                  value={carouselDelay}
+                  onClick={() => {setCarouselDelay(5000)}}
+                >
+                  5s
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant={`${carouselDelay === 10000 ? 'contained' : 'outlined'}`}
+                  value={carouselDelay}
+                  color="primary"
+                  startIcon={<AccessTimeOutlined/>}
+                  onClick={() => {setCarouselDelay(10000)}}
+                >
+                  10s
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant={`${carouselDelay === 15000 ? 'contained' : 'outlined'}`}
+                  value={carouselDelay}
+                  color="primary"
+                  startIcon={<AccessTimeOutlined/>}
+                  onClick={() => {setCarouselDelay(15000)}}
+                >
+                  15s
+                </Button>
+              </Grid>
+            </Grid>
+          </>
+          }
+        </Box>
         <Grid container spacing={4}>
           {result.children.map((container, index) => (
             <Grid item key={index} xs={12} sm={6} md={6}>
@@ -116,7 +155,7 @@ const ContainerView = (props) => {
         </Grid>
       </Container>
       <DataStreamView uuid={dataStreamUuid} dismiss={handleDismissDataStream}/>
-    </Fragment></MuiThemeProvider>
+    </Fragment>
   );
 };
 

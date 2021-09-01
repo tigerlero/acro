@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFetch } from "../helpers/hooks";
 import { Endpoint } from "../constants/enums";
-import "../App.css";
-import {Container, Grid, Card, MuiThemeProvider} from '@material-ui/core';
-import {theme} from 'theme';
 import LinearProgress from "@material-ui/core/LinearProgress";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import IconButton from "@material-ui/core/IconButton";
@@ -43,8 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper:{
     backgroundColor: '#000000de'
-  },
-  
+  }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -110,7 +106,8 @@ export default function DataStreamView({uuid,dismiss}) {
     }
   }, [uuid]);
 
-  return (<MuiThemeProvider theme={theme}>    
+  return (
+    <>
       <Dialog open={openDescription}
               PaperComponent={PaperComponent}
               onClose={handleCloseDescription}
@@ -174,6 +171,7 @@ export default function DataStreamView({uuid,dismiss}) {
         {fileLoading && <LinearProgress />}
             <FilePreview imageAlt={dataStreamResult.label} isLoading={fileLoading} fileBase64={file} fileType={dataStreamResult.mimeType} downloadProgress={downloadProgress}/>
         </DialogContent>
-      </Dialog></MuiThemeProvider>
+      </Dialog>
+    </>
   );
 }
