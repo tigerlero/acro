@@ -30,15 +30,15 @@ const Slider = () => {
    
   <Carousel  className={classes.image} autoPlay={true}>
     <div className={classes.image}>
-      <img width="80%" height="80%" alt="" src="http://www.talent.gr/demo/static/media/diaspora3.82fd0858.jpg" />
+      <img width="100%" height="100%" alt="" src="http://www.talent.gr/demo/static/media/diaspora3.82fd0858.jpg" />
       <p className="legend">Legend 1</p>
     </div>
     <div className={classes.image}>
-      <img width="80%" height="80%" alt="" src="http://www.talent.gr/demo/static/media/diaspora1.6ad21aba.jpg" />
+      <img width="100%" height="100%" alt="" src="http://www.talent.gr/demo/static/media/diaspora1.6ad21aba.jpg" />
       <p className="legend">Legend 2</p>
     </div>
     <div className={classes.image}>
-      <img width="80%" height="80%" alt="" src="http://www.talent.gr/demo/static/media/diaspora2.7ff5d622.jpg" />
+      <img width="100%" height="100%" alt="" src="http://www.talent.gr/demo/static/media/diaspora2.7ff5d622.jpg" />
       <p className="legend">Legend 3</p>
     </div>
   </Carousel>
