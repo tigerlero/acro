@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     flex:'left',
-    textAlign:'center',
+    textAlign:'left',
     color: 'inherit',
     textDecoration: 'inherit',
     '&:link': {
@@ -88,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   subtitle: {
+    textAlign:'left',
     fontWeight: 'bold',
     color: 'inherit',
     textDecoration: 'inherit',
@@ -181,9 +182,12 @@ export default function ContainerCard({container}) {
               {description}
               </Typography>
               <Typography className={classes.description} variant="body" display="block" gutterBottom>
-              {(linkInt.length > 0 ) && (  <h6>Link για βίντεο: <a href={linkInt}>(Ιστορίες)</a></h6>)}
+              {(linkInt.length > 0 ) && (  <Typography>Περισσότερα:</Typography>)}
               </Typography>
-              {(link.length > 0 ) && ( <h6 className={classes.description}>Πηγη: <a href={link}>{link}</a></h6>)}
+              <Typography className={classes.description} variant="body" display="block" gutterBottom>
+              {(linkInt.length > 0 ) && (  <Typography>Link για βίντεο: <a href={linkInt}>(Ιστορίες)</a></Typography>)}
+              </Typography>
+              {(link.length > 0 ) && ( <Typography className={classes.description}>Πηγη: <a href={link}>{link}</a></Typography>)}
               
               </p>
             </Grid>
