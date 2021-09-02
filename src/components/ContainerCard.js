@@ -86,6 +86,7 @@ export default function ContainerCard({container}) {
   const [thumbnail, setThumbnail] = useState(null)
   const [description,setDescription] = useState('')
   const [link,setLink] = useState('')
+  const [linkInt,setLinkInt] = useState('')
   const url = Endpoint.containers + '/' + container.uuid;
   const [isLoading, result, error] = useFetch(url, {
     children: [],
@@ -115,19 +116,19 @@ export default function ContainerCard({container}) {
       
       if (findUrlInternal === undefined)
       {
-        setLink('url')
+        setLinkInt('')
       }
       else if(findUrlInternal.value.length > 0)
       {
         const parsedDescr = JSON.parse(findUrlInternal.value)
-        setLink(parsedDescr.values)
+        setLinkInt(parsedDescr.values)
       }
       else{
-        setLink(findUrlInternal.value)
+        setLinkInt(findUrlInternal.value)
       }
       if (findUrl === undefined)
       {
-        setLink('url')
+        setLink('')
       }
       else if(findUrl.value.length > 0)
       {
@@ -167,7 +168,10 @@ export default function ContainerCard({container}) {
               {description}
               </Typography>
               <Typography className={classes.description} variant="body" display="block" gutterBottom>
-              {link}
+              {(linkInt.length > 0 ) && (  <h6>Link για βίντεο: <a href={linkInt}>(Ιστορίες)</a></h6>)}
+              </Typography>
+              <Typography className={classes.description} variant="body" display="block" gutterBottom>
+              {(link.length > 0 ) && ( <h6>Πηγη: <a href={link}>{link}</a></h6>)}
               </Typography>
               </p>
             </Grid>

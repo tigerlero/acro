@@ -8,11 +8,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   car: {
-    position: 'relative',
     alignItems: 'center',
     textAlign: 'center',
     margin: 'auto',
-    display: 'block-inline',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
@@ -35,6 +33,7 @@ const AliceCar = (props) => {
     infinite={false}
     autoHeigh={false}
     innerWidth={'100%'}
+    
     autoWidth={false}
     handleDragStart={handleDragStart}
     mouseTracking
