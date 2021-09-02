@@ -12,40 +12,7 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
-const BootstrapInput = withStyles((theme) => ({
-  root: {
-    'label + &': {
-      marginTop: theme.spacing(3),
-    },
-  },
-  input: {
-    borderRadius: 4,
-    position: 'relative',
-    backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
-  },
-}))(InputBase);
+
 
 const BootstrapButton = withStyles({
   root: {
@@ -88,12 +55,13 @@ const BootstrapButton = withStyles({
 })(Button);
 
 const useStyles = makeStyles((theme) => ({
+  button: {
+    display: 'block',
+    marginTop: theme.spacing(2),
+  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(1),
   },
 }));
 
@@ -144,15 +112,14 @@ function Euretirio(){
     return(
       <MuiThemeProvider theme={theme}>
         <Header/>
-          <Container style={{marginTop:20}}>
+          <Container style={{marginTop:40}}>
           <Grid container>
-          <FormControl className={classes.margin}>
-          <InputLabel htmlFor="demo-customized-select-native">Είδος</InputLabel>
+          <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="demo-simple-select-label">Είδος</InputLabel>
           <NativeSelect
-            id="demo-customized-select-native"
+            id="demo-simple-select-label"
             value={eidos}
             onChange={handleChange}
-            input={<BootstrapInput />}
           >
             <option aria-label="None" value="" />
             <option value={options[0]}>{options[0]}</option>
@@ -160,13 +127,12 @@ function Euretirio(){
             <option value={options[2]}>{options[2]}</option>
           </NativeSelect>
         </FormControl>
-        <FormControl className={classes.margin}>
+        <FormControl className={classes.formControl}>
           <InputLabel htmlFor="2">Μνημείο</InputLabel>
           <NativeSelect
             id="2"
-            value={eidos}
+            value={mnimeio}
             onChange={handleChange2}
-            input={<BootstrapInput />}
           >
             <option aria-label="None" value="" />
             <option value={options2[0]}>{options2[0]}</option>
@@ -174,13 +140,12 @@ function Euretirio(){
             <option value={options2[2]}>{options2[2]}</option>
           </NativeSelect>
         </FormControl>
-        <FormControl className={classes.margin}>
+        <FormControl className={classes.formControl}>
         <InputLabel htmlFor="3">Εποχή</InputLabel>
         <NativeSelect
           id="3"
-          value={eidos}
+          value={epoxi}
           onChange={handleChange3}
-          input={<BootstrapInput />}
         >
           <option aria-label="None" value="" />
           <option value={options3[0]}>{options3[0]}</option>
@@ -188,13 +153,12 @@ function Euretirio(){
           <option value={options3[2]}>{options3[2]}</option>
         </NativeSelect>
       </FormControl>
-      <FormControl className={classes.margin}>
+      <FormControl className={classes.formControl}>
         <InputLabel htmlFor="4">Θέση</InputLabel>
         <NativeSelect
           id="4"
-          value={eidos}
+          value={thesi}
           onChange={handleChange4}
-          input={<BootstrapInput />}
         >
           <option aria-label="None" value="" />
           <option value={options4[0]}>{options4[0]}</option>
