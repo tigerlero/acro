@@ -7,8 +7,7 @@ import {theme} from 'theme'
 import {Container, Grid, Card, MuiThemeProvider, Collapse, IconButton} from '@material-ui/core'
 import {Component} from 'react';
 import {render} from 'react-dom';
-import Slider from '../components/Slider';
-import '../assets/carousel.min.css';
+import AliceCar from 'components/AliceCar';
 import {ExpandLess, ExpandMore} from '@material-ui/icons'
 const useStyles = makeStyles((theme) => ({
  video:{
@@ -24,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
  textDecor: {
   alignItems: 'center',
   textAlign: 'center',
-  marginTop: theme.spacing(20),
   marginLeft: theme.spacing(2),
   marginRight: theme.spacing(2),
   height: '200px',
@@ -48,16 +46,23 @@ function HomePage() {
     setShowVideo(false)
     sessionStorage.setItem('introShown','1')
   }
+  const handleDragStart = (e) => e.preventDefault();
+    const items = [
+        <img width='100%' height="666px" alt="" src='http://www.talent.gr/demo/static/media/diaspora3.82fd0858.jpg' onDragStart={handleDragStart} />,
+        <img width='100%' height="666px" alt="" src='http://www.talent.gr/demo/static/media/diaspora1.6ad21aba.jpg' onDragStart={handleDragStart}/>,
+        <img  width='100%' height="666px" alt="" src='http://www.talent.gr/demo/static/media/diaspora2.7ff5d622.jpg' onDragStart={handleDragStart}/>,
+      ];
 
     return (
       <MuiThemeProvider theme={theme}>
         <Header/>
         <Container alignContent="center" alignItems="center" style={{marginTop: 20}}>
+        <AliceCar items={items}/>
+        
         <Grid container
               direction="row-reverse"
               justifyContent="center"
               alignItems="baseline">
-          <Grid alignContent="center" alignItems="center" item><Slider/></Grid>
           <Grid item className={classes.textDecor}>
               <p>Η αγάπη για τις ελληνικές αρχαιότητες και η επιθυμία για την ιδιοποίησή τους έχει ξεκινήσει ήδη από τα
                 ρωμαϊκά χρόνια (Σύλλας 86 π.Χ., ).
