@@ -10,10 +10,12 @@ import {Endpoint} from '../constants/enums';
 import {downloadThumb} from '../helpers/utils'
 import {IconButton} from '@material-ui/core'
 import {useFetch} from '../helpers/hooks';
+import '../App.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-  
+    color: 'black',
+    textDecoration: 'none',
     transition: 'transform .2s',
     zIndex: 99,
     '&:hover': {
@@ -38,46 +40,57 @@ const useStyles = makeStyles((theme) => ({
     flex:'left',
     fontWeight: 'bold',
     textAlign:'center',
-    textDecodation: 'none',
+    color: 'inherit',
+    textDecoration: 'inherit',
     '&:link': {
-      textDecodation: 'none',
+      color: 'inherit',
+    textDecoration: 'inherit',
     }
     ,
     '&:visited':  {
-      textDecodation: 'none',
+      color: 'inherit',
+    textDecoration: 'inherit',
     }
     ,
     '&:hover': {
-      textDecodation: 'none',
+      color: 'inherit',
+    textDecoration: 'inherit',
     }
     ,
     '&:active':  {
-      textDecodation: 'none',
+      color: 'inherit',
+    textDecoration: 'inherit',
     }
   },
   description: {
     flex:'left',
     textAlign:'center',
-    textDecodation: 'none',
+    color: 'inherit',
+    textDecoration: 'inherit',
     '&:link': {
-      textDecodation: 'none',
+      color: 'inherit',
+    textDecoration: 'inherit',
     }
     ,
     '&:visited':  {
-      textDecodation: 'none',
+      color: 'inherit',
+    textDecoration: 'inherit',
     }
     ,
     '&:hover': {
-      textDecodation: 'none',
+      color: 'inherit',
+    textDecoration: 'inherit',
     }
     ,
     '&:active':  {
-      textDecodation: 'none',
+      color: 'inherit',
+    textDecoration: 'inherit',
     }
   },
   subtitle: {
     fontWeight: 'bold',
-    textDecodation: 'none',
+    color: 'inherit',
+    textDecoration: 'inherit',
   },
 }));
 
@@ -162,7 +175,7 @@ export default function ContainerCard({container}) {
               }}
             ><p>
               <Typography className={classes.title} variant="caption" display="block" gutterBottom>
-                {container.label ? container.label : '-'}
+                {container.label ? container.label : ''}
               </Typography>
               <Typography className={classes.description} variant="body" display="block" gutterBottom>
               {description}
@@ -170,9 +183,8 @@ export default function ContainerCard({container}) {
               <Typography className={classes.description} variant="body" display="block" gutterBottom>
               {(linkInt.length > 0 ) && (  <h6>Link για βίντεο: <a href={linkInt}>(Ιστορίες)</a></h6>)}
               </Typography>
-              <Typography className={classes.description} variant="body" display="block" gutterBottom>
-              {(link.length > 0 ) && ( <h6>Πηγη: <a href={link}>{link}</a></h6>)}
-              </Typography>
+              {(link.length > 0 ) && ( <h6 className={classes.description}>Πηγη: <a href={link}>{link}</a></h6>)}
+              
               </p>
             </Grid>
             <Grid item>
