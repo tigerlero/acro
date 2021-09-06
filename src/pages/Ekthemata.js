@@ -4,20 +4,15 @@ import {Container, Grid, Card, MuiThemeProvider} from '@material-ui/core'
 import {theme} from 'theme'
 import { makeStyles } from '@material-ui/core/styles';
 import {useState } from 'react';
-import Modal from '@material-ui/core/Modal';
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import React, {Fragment,  useMemo} from 'react';
-import { useCommonStyles } from "../components/styles";
 import ContainerCard from "../components/ContainerCard";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Alert from "@material-ui/lab/Alert";
+import MouseioMesa from 'components/MouseioMesa';
 //import ContainerBreadCrumb from "../components/ContainerBreadCrumb";
 import {useFetch} from '../helpers/hooks'
 import {useEffect} from 'react';
 import {Endpoint} from '../constants/enums'
-import FilePreview from 'components/FilePreview';
-import {NavLink} from 'react-router-dom';
-import {NavigateNext} from '@material-ui/icons';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom';
@@ -53,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function Mouseia(){
+function Ekthemata(){
 
   const [open, setOpen] = React.useState(false);
 
@@ -108,58 +103,7 @@ function Mouseia(){
     children: [],
     datastreams: []
   });
-  useEffect(() => {
-    if (result.uuid)
-    {
-      result.datastreams[0] && downloadThumb(result.datastreams[0].uuid, setThumbnail)   
-      const findDesc = result.properties.find((p)=>p.key==='property:description')
-      const findUrlInternal = result.properties.find((p)=>p.key==='property:url-internal')
-      const findUrl = result.properties.find((p)=>p.key==='property:url')
-      result.children[1] && setLabel(result.children[1].label)
-      
-      //label=='Εκθέματα' && setEkthemata(result.children[0])
-      setEkthemata(result.children[0].label)
-      //JSON.parse(result.children[1].uuid.values
-      if (findDesc === undefined)
-      {
-        setDescription('Περιγραφή')
-      }
-      else if(findDesc.value.length > 0)
-      {
-        const parsedDescr = JSON.parse(findDesc.value)
-        setDescription(parsedDescr.values)
-      }
-      else{
-        setDescription(findDesc.value)
-      }
-      
-      if (findUrlInternal === undefined)
-      {
-        setLinkInt('')
-      }
-      else if(findUrlInternal.value.length > 0)
-      {
-        const parsedDescr = JSON.parse(findUrlInternal.value)
-        setLinkInt(parsedDescr.values)
-      }
-      else{
-        setLinkInt(findUrlInternal.value)
-      }
-      if (findUrl === undefined)
-      {
-        setLink('')
-      }
-      else if(findUrl.value.length > 0)
-      {
-        const parsedDescr = JSON.parse(findUrl.value)
-        setLink(parsedDescr.values)
-      }
-      else{
-        setLink(findUrl.value)
-      }
-    }
-    // eslint-disable-next-line
-  }, [result.uuid])
+  
   const sLoading = useMemo(()=>{
     try{
       return !!(isLoading);
@@ -193,7 +137,8 @@ function Mouseia(){
   },[result]);
   const mouseia = result.children.map((res) => res);
   //const mouseia = result.children[0].label
- 
+  console.log("result");
+  console.log(result);
  
   return(<MuiThemeProvider theme={theme}>
     <Header/>
@@ -204,14 +149,7 @@ function Mouseia(){
       />
       <Container className={classes.cardGrid} maxWidth="md">
         
-        <Grid container spacing={4}>
-          {mouseia && mouseia.map((container, index) => (
-            <Grid item key={index} xs={12} sm={6} md={6}>
-              <ContainerCard container={container} />
-              {mouseia.label}
-            </Grid>
-          ))}
-        </Grid>
+        <MouseioMesa/>
       </Container>
     </Fragment>
     
@@ -219,4 +157,4 @@ function Mouseia(){
   </MuiThemeProvider>);
 }
 
-export default Mouseia;
+export default Ekthemata;
