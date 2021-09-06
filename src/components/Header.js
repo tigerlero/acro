@@ -12,6 +12,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
+import {Link} from 'react-router-dom';
+import {Endpoint} from '../constants/enums';
+import {downloadThumb} from '../helpers/utils'
+import {IconButton} from '@material-ui/core'
+import {useFetch} from '../helpers/hooks';
+import { useMemo } from 'react';
+
+import ContainerCard from "../components/ContainerCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,7 +105,40 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
+  const [mouseiaLoading,mouseiaResult,mouseiaError] = useFetch(`${Endpoint.containers}/8a4aa059-4b9a-40d3-93b5-bb94abe182ee`,[]);
+
  
+  const isLoading = useMemo(()=>{
+    try{
+      return !!( mouseiaLoading);
+    }
+    catch (e){
+      return false
+    }
+  },[mouseiaLoading])
+
+  const error = useMemo(()=>{
+    try{
+      if ( mouseiaError )
+        return true
+    }
+    catch (e){
+      return false
+    }
+  },[mouseiaError])
+
+  const result = useMemo(()=>{
+    try{
+      if (mouseiaResult.uuid )
+      {
+        return [mouseiaResult]
+      }
+    }
+    catch (e){
+      console.log(e)
+      return []
+    }
+  },[mouseiaResult]);
 
   useEffect(()=>{
     const languageCh = sessionStorage.getItem('lang')
@@ -155,8 +196,7 @@ const Header = () => {
           <NavLink to="/" activeClassName={classes.activeMenu} className={classes.navLink} exact={true}>Αρχική</NavLink>
           <NavLink to="/me-mia-matia" activeClassName={classes.activeMenu} className={classes.navLink} exact={true}>Με
             μια ματιά</NavLink>
-          <NavLink to="/mouseia" activeClassName={classes.activeMenu} className={classes.navLink}
-                   exact={true}>Μουσεία</NavLink>
+          <NavLink to="/mouseia" activeClassName={classes.activeMenu} className={classes.navLink} exact={true}>Μουσεία</NavLink>
           <NavLink to="/istories" activeClassName={classes.activeMenu} className={classes.navLink}
                    exact={true}>Ιστορίες</NavLink>
           <NavLink to="/euretirio" activeClassName={classes.activeMenu} className={classes.navLink}

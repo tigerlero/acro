@@ -101,6 +101,9 @@ export default function ContainerCard({container}) {
   const [description,setDescription] = useState('')
   const [link,setLink] = useState('')
   const [linkInt,setLinkInt] = useState('')
+  
+  const [ekthemata, setEkthemata] = useState(null)
+  const [label, setLabel] = useState('null')
   const url = Endpoint.containers + '/' + container.uuid;
   const [isLoading, result, error] = useFetch(url, {
     children: [],
@@ -113,8 +116,10 @@ export default function ContainerCard({container}) {
       const findDesc = result.properties.find((p)=>p.key==='property:description')
       const findUrlInternal = result.properties.find((p)=>p.key==='property:url-internal')
       const findUrl = result.properties.find((p)=>p.key==='property:url')
-      
-      console.log(findDesc,findUrlInternal,findUrl)
+      result.children[1] && setLabel(result.children[1].label)
+      //label=='Εκθέματα' && setEkthemata(result.children[0])
+      label=='Εκθέματα' && setEkthemata('done')
+      //JSON.parse(result.children[1].uuid.values
       if (findDesc === undefined)
       {
         setDescription('Περιγραφή')
@@ -153,9 +158,9 @@ export default function ContainerCard({container}) {
         setLink(findUrl.value)
       }
     }
-    
     // eslint-disable-next-line
   }, [result.uuid])
+ 
 
   return (
     <Link to={'/containers/' + container.uuid}>
@@ -180,6 +185,10 @@ export default function ContainerCard({container}) {
               </Typography>
               <Typography className={classes.description} variant="body" display="block" gutterBottom>
               {description}
+              </Typography>
+              <Typography className={classes.description} variant="body" display="block" gutterBottom>
+              {label}
+              {ekthemata}
               </Typography>
               <Typography className={classes.description} variant="body" display="block" gutterBottom>
               {(linkInt.length > 0 ) && (  <Typography>Περισσότερα:</Typography>)}

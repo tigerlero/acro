@@ -13,10 +13,16 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Alert from "@material-ui/lab/Alert";
 //import ContainerBreadCrumb from "../components/ContainerBreadCrumb";
 import {useFetch} from '../helpers/hooks'
+import {useEffect} from 'react';
 import {Endpoint} from '../constants/enums'
 import FilePreview from 'components/FilePreview';
 import {NavLink} from 'react-router-dom';
-
+import {NavigateNext} from '@material-ui/icons';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import {Link} from 'react-router-dom';
+import {downloadThumb} from '../helpers/utils'
+import {IconButton} from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   
   image:{
@@ -59,66 +65,147 @@ function Mouseia(){
     setOpen(false);
   };
   const classes = useStyles();
-
-  const [akroLoading,akroResult,akroError] = useFetch(`${Endpoint.containers}/52e73b8d-9f53-45b1-a6a6-6adfd80d7b18`,[]);
-  const [vreLoading,vreResult,vreError] = useFetch(`${Endpoint.containers}/f3109b71-3072-4c6c-b17a-9cba019978cb`,[]);
-  
-  const [ethnLoading,ethnResult,ethnError] = useFetch(`${Endpoint.containers}/36738f8a-9382-4df4-8c80-852d59d35010`,[]);
-  
-  const isLoading = useMemo(()=>{
+  const [mouseiaLoading,mouseiaResult,mouseiaError] = useFetch(`${Endpoint.containers}/8a4aa059-4b9a-40d3-93b5-bb94abe182ee`,[]);
+  const MLoading = useMemo(()=>{
     try{
-      return !!(akroLoading || vreLoading || ethnLoading);
+      return !!(mouseiaLoading);
     }
     catch (e){
       return false
     }
-  },[akroLoading,vreLoading,ethnLoading])
+  },[mouseiaLoading])
 
-  const error = useMemo(()=>{
+  const Merror = useMemo(()=>{
     try{
-      if (akroError || vreError || ethnError)
+      if (mouseiaError)
         return true
     }
     catch (e){
       return false
     }
-  },[akroError,vreError,ethnError])
+  },[mouseiaError])
 
-  const result = useMemo(()=>{
+  const Mresult = useMemo(()=>{
     try{
-      if (akroResult.uuid||vreResult.uuid||ethnResult.uuid)
+      if (mouseiaResult.uuid)
       {
-        return [akroResult,vreResult,ethnResult]
+        return [mouseiaResult]
       }
     }
     catch (e){
       console.log(e)
       return []
     }
-  },[akroResult,vreResult,ethnResult]);
+  },[mouseiaResult]);
+  const [thumbnail, setThumbnail] = useState(null)
+  const [description,setDescription] = useState('')
+  const [link,setLink] = useState('')
+  const [linkInt,setLinkInt] = useState('')
+  const [ekthemata, setEkthemata] = useState(null)
+  const [label, setLabel] = useState('null')
+  const url = Endpoint.containers + '/' + mouseiaResult.uuid;
+  const [isLoading, result, error] = useFetch(url, {
+    children: [],
+    datastreams: []
+  });
+  useEffect(() => {
+    if (result.uuid)
+    {
+      result.datastreams[0] && downloadThumb(result.datastreams[0].uuid, setThumbnail)   
+      const findDesc = result.properties.find((p)=>p.key==='property:description')
+      const findUrlInternal = result.properties.find((p)=>p.key==='property:url-internal')
+      const findUrl = result.properties.find((p)=>p.key==='property:url')
+      result.children[1] && setLabel(result.children[1].label)
+      
+      //label=='Εκθέματα' && setEkthemata(result.children[0])
+      setEkthemata(result.children[0].label)
+      //JSON.parse(result.children[1].uuid.values
+      if (findDesc === undefined)
+      {
+        setDescription('Περιγραφή')
+      }
+      else if(findDesc.value.length > 0)
+      {
+        const parsedDescr = JSON.parse(findDesc.value)
+        setDescription(parsedDescr.values)
+      }
+      else{
+        setDescription(findDesc.value)
+      }
+      
+      if (findUrlInternal === undefined)
+      {
+        setLinkInt('')
+      }
+      else if(findUrlInternal.value.length > 0)
+      {
+        const parsedDescr = JSON.parse(findUrlInternal.value)
+        setLinkInt(parsedDescr.values)
+      }
+      else{
+        setLinkInt(findUrlInternal.value)
+      }
+      if (findUrl === undefined)
+      {
+        setLink('')
+      }
+      else if(findUrl.value.length > 0)
+      {
+        const parsedDescr = JSON.parse(findUrl.value)
+        setLink(parsedDescr.values)
+      }
+      else{
+        setLink(findUrl.value)
+      }
+    }
+    // eslint-disable-next-line
+  }, [result.uuid])
+  const sLoading = useMemo(()=>{
+    try{
+      return !!(isLoading);
+    }
+    catch (e){
+      return false
+    }
+  },[isLoading])
 
+  const serror = useMemo(()=>{
+    try{
+      if (error)
+        return true
+    }
+    catch (e){
+      return false
+    }
+  },[error])
+
+  const sresult = useMemo(()=>{
+    try{
+      if (result.uuid)
+      {
+        return [result]
+      }
+    }
+    catch (e){
+      console.log(e)
+      return []
+    }
+  },[result]);
+  const mouseia = result.children.map((res) => res);
+  //const mouseia = result.children[0].label
+ 
+ 
   return(<MuiThemeProvider theme={theme}>
     <Header/>
     <Fragment>
-      {/*<div className={classes.heroContent}>*/}
-      {/*  <Container maxWidth="md">*/}
-      {/*    <Grid item xs={12} container justify={"flex-start"}>*/}
-      {/*      <ContainerBreadCrumb path={[]}/>*/}
-      {/*    </Grid>*/}
-      {/*  </Container>*/}
-      {/*</div>*/}
+      
       <LinearProgress
         style={{ visibility: isLoading ? "visible" : "hidden" }}
       />
       <Container className={classes.cardGrid} maxWidth="md">
-        {error && (
-          <Alert severity="error" style={{ marginBottom: 16 }}>
-            {error}
-          </Alert>
-        )}
-        {/* End hero unit */}
+        
         <Grid container spacing={4}>
-          {result && result.map((container, index) => (
+          {mouseia && mouseia.map((container, index) => (
             <Grid item key={index} xs={12} sm={6} md={6}>
               <ContainerCard container={container} />
             </Grid>
@@ -126,46 +213,8 @@ function Mouseia(){
         </Grid>
       </Container>
     </Fragment>
-    <Modal className={classes.full} open={open} closeAfterTransition
-    >{<TransformWrapper
-        initialScale={1}
-        initialPositionX={200}
-        initialPositionY={100}
-      >
-        {({ zoomIn, zoomOut, resetTransform, handleClose }) => (
-          <React.Fragment>
-            <div className="tools">
-              <button onClick={() => zoomIn()}>+</button>
-              <button onClick={() => zoomOut()}>-</button>
-              <button onClick={() => resetTransform()}>x</button>
-              <button onClick={() => handleClose()}>back</button>
-            </div>
-            <TransformComponent>
-              <img src="http://www.talent.gr/demo/static/media/acropolis_1.4c17059b.jpg" alt="test" />
-              <div>Example text</div>
-            </TransformComponent>
-          </React.Fragment>
-        )}
-      </TransformWrapper>}
-    </Modal>
-      <Container style={{marginTop:20}}>
-      <Grid  container justifyContent="center" spacing={2}>
-      <Grid item ><NavLink to="/acropolis" activeClassName={classes.activeMenu} className={classes.navLink}
-      exact={true}><img width="400px" height="300px" alt="" src="http://www.talent.gr/demo/static/media/acropolis_1.4c17059b.jpg" />
-      </NavLink><span className={classes.span}>Μουσείο της Ακρόπολης</span></Grid>
-      <Grid item><NavLink to="/mouseio" activeClassName={classes.activeMenu} className={classes.navLink}
-      exact={true}><img width="400px" height="300px" alt="" src="http://www.talent.gr/demo/static/media/british_1.a8fb8d1e.jpg" />
-      </NavLink>
-        <span className={classes.span}>Βρετανικό Μουσείο</span></Grid>
-        <Grid item><img width="400px" height="300px" alt="" src="http://www.talent.gr/demo/static/media/copenhagen_1.e63b5b53.jpg" />
-        <span className={classes.span}>Μουσείο Rodin στο Παρίσι</span></Grid>
-        <Grid item><img width="400px" height="300px" alt="" src="http://www.talent.gr/demo/static/media/lyon_1.84ced0f8.jpg" />
-        <span className={classes.span}>Μουσείο Καλών Τεχνών της Λυών </span></Grid>
-        <Grid item><img width="400px" height="300px" alt="" src="http://www.talent.gr/demo/static/media/rodin_1.9ac4bced.jpg" />
-        <span className={classes.span}>Εθνικό Μουσείο της Κοπεγχάγης</span></Grid>
-        
-    </Grid>
-    </Container>
+    
+      
   </MuiThemeProvider>);
 }
 
