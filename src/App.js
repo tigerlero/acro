@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
 import NotFoundPage from 'pages/NotFoundPage';
 import { BrowserRouter, Link, Switch, Route} from 'react-router-dom'
-import Mouseia from 'pages/Mouseia';
+import Museums from 'pages/Museums';
 import Euretirio from 'pages/Euretirio';
 import Istories from 'pages/Istories';
 import HomePage from 'pages/HomePage';
 import MeMiaMatia from 'pages/MeMiaMatia';
 import Xronologio from 'pages/Xronologio';
 import RootView from "pages/RootView";
-import AcroEkthemata from "pages/AcroEkthemata";
+import MuseumId from "pages/MuseumId";
 import About from "pages/About";
 import ContainerView from "pages/ContainerView";
 import DataStreamView from "pages/DataStreamView";
@@ -16,6 +16,7 @@ import { routes } from "./routes";
 import { HOME_PAGE } from "./config";
 import AppRoute from "./routes/route";
 import MouseioMesa from "components/MouseioMesa";
+import Exhibits from "pages/Exhibits";
 function App() {
   return (<React.Fragment>
     <BrowserRouter basename={HOME_PAGE}>
@@ -24,8 +25,9 @@ function App() {
       
       <Route path="/" component={HomePage} exact={true} />
         <Route path="/me-mia-matia" component={MeMiaMatia} exact={true} />
-        <Route path="/mouseia" component={Mouseia} exact={true} />
-        <Route path="/acropolis" component={AcroEkthemata} exact={true} />
+        <Route path="/Museums" component={Museums} exact={true} />
+        <Route path="/museum/:id" component={MuseumId} exact={true} />
+        <Route path="/exhibits/:id" component={Exhibits} exact={true} />
         <Route path="/istories" component={Istories} exact={true} />
         <Route path="/euretirio" component={Euretirio} exact={true}/>
         <Route path="/xronologio" component={Xronologio} exact={true}/>

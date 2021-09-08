@@ -68,13 +68,14 @@ const ContainerView = (props) => {
   useEffect(() => {
     if (result?.children?.length > 0)
     console.log(result)
-    //  {
-    //    const tempArray = []
-    //    result.children.forEach((item)=>{
-    //       tempArray.push(item)
-    //    })
-    //    console.log(tempArray)
-    //  }
+    {
+      const tempArray = []
+      result.children.forEach((item)=>{
+         tempArray.push(item)
+      })
+      console.log('tempArray')
+      console.log(tempArray)
+    }
 
   }, [result])
 
@@ -92,7 +93,6 @@ const ContainerView = (props) => {
           </Alert>
         )}
         <NoFiles result={result} isLoading={isLoading}/>
-        {/* End hero unit */}
         
         <Grid container spacing={4}>
           {result.children.map((container, index) => (

@@ -30,10 +30,9 @@ const AliceCar = (props) => {
     animationDuration={800}
     centerMode={false}
     disableButtonsControls={true}
-    infinite={false}
+    infinite={true}
     autoHeigh={false}
     innerWidth={'100%'}
-    
     autoWidth={false}
     handleDragStart={handleDragStart}
     mouseTracking

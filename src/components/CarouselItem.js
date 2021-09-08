@@ -2,7 +2,6 @@ import React, { useCallback, useState , useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { Link } from "react-router-dom";
-
 import { Endpoint } from "../constants/enums";
 import { fetchData } from "../helpers/utils";
 import CardContent from "@material-ui/core/CardContent";

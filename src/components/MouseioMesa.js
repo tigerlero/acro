@@ -9,10 +9,23 @@ import {ExpandLess, ExpandMore} from '@material-ui/icons'
 import {Button} from '@material-ui/core';
 import {withStyles, makeStyles,} from '@material-ui/core/styles';
 import ArtTrack from '@material-ui/icons/ArtTrack';
-
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import {NavLink} from 'react-router-dom';
+import {downloadThumb, fetchData} from '../helpers/utils'
+function truncateString(str, num) {
+  if (num > str.length){ // if num is greater than string length (in you case 11 is not greater than 43
+    str.slice(num);
+    return str.append("...");
+  } 
+  else if (num < 3) {   // or if the num is less than 3 (11 is not less than 3)
+    str.slice(3);
+    return str.append("...");
+  }
+  else { // do if no if was matched (and here we are)
+    return "This is not a string";
+  }
 
+}
 const BootstrapButton = withStyles({
   root: {
     width:"150px",
@@ -88,22 +101,35 @@ back:{
  paddingTop:'10px',
  paddingLeft:'50px',
 }
-
 }));
 
 
-function MouseioMesa(){
+function MouseioMesa(props){
   const classes = useStyles();
+  const {museum,images,exhibits} = props
   const [expanded,setExpanded] = useState(false)
   const handleDragStart = (e) => e.preventDefault();
-    const items = [
-        <img width="100%" height="666px" alt="" src='http://www.talent.gr/demos/acropolis/diaspora/p4-1-1.jpg' onDragStart={handleDragStart} />,
-        <img width="100%" height="666px" alt="" src='http://www.talent.gr/demos/acropolis/diaspora/p4-1-2.jpg' onDragStart={handleDragStart}/>,
-        <img width="100%" height="666px" alt="" src='http://www.talent.gr/demos/acropolis/diaspora/p4-1-3.jpg' onDragStart={handleDragStart}/>,
-      ];
+  const [carouselItems,setCarouselItems] = useState([])
+  const [thumb,setThumb] = useState(null)
+  useEffect(()=>{
+    if (images.length > 0)
+   {
+    images.forEach((img)=>{
+      downloadThumb(img,setThumb)
+    })
+  }
+  },[images])
+
+  useEffect(()=>{ 
+      if (thumb)
+      {
+        setCarouselItems([...carouselItems,<img width="100%" height="666px" src={thumb} alt='asd' onDragStart={handleDragStart} />])
+      }
+  },[thumb])
+  
+    
     return(
       <MuiThemeProvider theme={theme}>
-        <Header/>
         <Grid alignContent="center" alignItems="center" item>
           <div className={classes.back}>
           <NavLink  to="/mouseia" activeClassName={classes.activeMenu} className={classes.navLink}
@@ -114,14 +140,16 @@ function MouseioMesa(){
           Πίσω
         </BootstrapButton></NavLink></div></Grid>
         <Container alignContent="center" alignItems="center" style={{marginTop: 20}}>
-        <AliceCar items={items}/>
+        <AliceCar items={carouselItems}/>
         <Grid container
               direction="row-reverse"
               justifyContent="center"
               alignItems="baseline">
           <Grid alignContent="center" alignItems="center" item>
           <div className={classes.back}>
-          <NavLink  to="/mouseia" activeClassName={classes.activeMenu} className={classes.navLink}
+         
+          {console.log(exhibits)}
+          <NavLink  to={"/exhibits/"+ exhibits } activeClassName={classes.activeMenu} className={classes.navLink}
           exact={true}>
           <BootstrapButton variant="contained" color="primary" 
           endIcon={<ArtTrack />}
@@ -129,6 +157,7 @@ function MouseioMesa(){
           Εκθέματα
         </BootstrapButton></NavLink></div></Grid>
           <Grid item className={classes.textDecor}>
+          {truncateString(10,'sdasdsaasdasdsadasdasdsadsaaaaaasadasdasdasdasdasdasdsadasda')}
               <p>Η αγάπη για τις ελληνικές αρχαιότητες και η επιθυμία για την ιδιοποίησή τους έχει ξεκινήσει ήδη από τα
                 ρωμαϊκά χρόνια (Σύλλας 86 π.Χ., ).
                 Το πάθος για την ελληνική τέχνη οδήγησε πολλές φορές όχι μόνο στην αντιγραφή σπουδαίων γλυπτών αλλά και

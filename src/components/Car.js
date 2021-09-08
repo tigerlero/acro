@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ContainerCard({container}) {
+export default function Car({container}) {
   const classes = useStyles();
   const [thumbnail, setThumbnail] = useState(null)
   const [description,setDescription] = useState('')
